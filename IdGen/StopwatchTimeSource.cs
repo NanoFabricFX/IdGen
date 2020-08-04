@@ -8,7 +8,8 @@ namespace IdGen
     /// </summary>
     public abstract class StopwatchTimeSource : ITimeSource
     {
-        private static readonly Stopwatch _sw = Stopwatch.StartNew();
+        private static readonly Stopwatch _sw = new Stopwatch();
+        private static readonly DateTimeOffset _initialized = DateTimeOffset.UtcNow;
 
         /// <summary>
         /// Gets the epoch of the <see cref="ITimeSource"/>.
@@ -18,7 +19,7 @@ namespace IdGen
         /// <summary>
         /// Gets the elapsed time since this <see cref="ITimeSource"/> was initialized.
         /// </summary>
-        protected TimeSpan Elapsed { get { return _sw.Elapsed; } }
+        protected static TimeSpan Elapsed => _sw.Elapsed;
 
         /// <summary>
         /// Gets the offset for this <see cref="ITimeSource"/> which is defined as the difference of it's creationdate
@@ -34,8 +35,11 @@ namespace IdGen
         public StopwatchTimeSource(DateTimeOffset epoch, TimeSpan tickDuration)
         {
             Epoch = epoch;
-            Offset = (DateTimeOffset.UtcNow - Epoch);
+            Offset = (_initialized - Epoch);
             TickDuration = tickDuration;
+
+            // Start (or resume) stopwatch
+            _sw.Start();
         }
 
         /// <summary>

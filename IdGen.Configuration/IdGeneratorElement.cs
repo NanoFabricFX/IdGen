@@ -1,5 +1,4 @@
-﻿#if !NETSTANDARD2_0 && !NETCOREAPP2_0
-using System;
+﻿using System;
 using System.Configuration;
 using System.Globalization;
 
@@ -18,8 +17,8 @@ namespace IdGen.Configuration
         [ConfigurationProperty("name", IsRequired = true, IsKey = true)]
         public string Name
         {
-            get { return (string)this["name"]; }
-            set { this["name"] = value; }
+            get => (string)this["name"];
+            set => this["name"] = value;
         }
 
         /// <summary>
@@ -28,16 +27,26 @@ namespace IdGen.Configuration
         [ConfigurationProperty("id", IsRequired = true)]
         public int Id
         {
-            get { return (int)this["id"]; }
-            set { this["id"] = value; }
+            get => (int)this["id"];
+            set => this["id"] = value;
         }
 
 
         [ConfigurationProperty("epoch", IsRequired = true)]
         private string StringEpoch
         {
-            get { return (string)this["epoch"]; }
-            set { this["epoch"] = value; }
+            get => (string)this["epoch"];
+            set => this["epoch"] = value;
+        }
+
+        /// <summary>
+        /// Gets/sets the <see cref="SequenceOverflowStrategy"/> option of the <see cref="IdGeneratorElement"/>.
+        /// </summary>
+        [ConfigurationProperty("sequenceOverflowStrategy", IsRequired = false)]
+        public SequenceOverflowStrategy SequenceOverflowStrategy
+        {
+            get => (SequenceOverflowStrategy)this["sequenceOverflowStrategy"];
+            set => this["sequenceOverflowStrategy"] = value;
         }
 
         /// <summary>
@@ -45,38 +54,38 @@ namespace IdGen.Configuration
         /// </summary>
         public DateTime Epoch
         {
-            get { return DateTime.SpecifyKind(DateTime.ParseExact(StringEpoch, DATETIMEFORMATS, CultureInfo.InvariantCulture, DateTimeStyles.None), DateTimeKind.Utc); }
-            set { StringEpoch = value.ToString(DATETIMEFORMATS[0]); }
+            get => DateTime.SpecifyKind(DateTime.ParseExact(StringEpoch, DATETIMEFORMATS, CultureInfo.InvariantCulture, DateTimeStyles.None), DateTimeKind.Utc);
+            set => StringEpoch = value.ToString(DATETIMEFORMATS[0], CultureInfo.InvariantCulture);
         }
 
         /// <summary>
-        /// Gets/sets the <see cref="MaskConfig.TimestampBits"/> of the <see cref="IdGeneratorElement"/>.
+        /// Gets/sets the <see cref="IdStructure.TimestampBits"/> of the <see cref="IdGeneratorElement"/>.
         /// </summary>
         [ConfigurationProperty("timestampBits", IsRequired = true)]
         public byte TimestampBits
         {
-            get { return (byte)this["timestampBits"]; }
-            set { this["timestampBits"] = value; }
+            get => (byte)this["timestampBits"];
+            set => this["timestampBits"] = value;
         }
 
         /// <summary>
-        /// Gets/sets the <see cref="MaskConfig.GeneratorIdBits"/> of the <see cref="IdGeneratorElement"/>.
+        /// Gets/sets the <see cref="IdStructure.GeneratorIdBits"/> of the <see cref="IdGeneratorElement"/>.
         /// </summary>
         [ConfigurationProperty("generatorIdBits", IsRequired = true)]
         public byte GeneratorIdBits
         {
-            get { return (byte)this["generatorIdBits"]; }
-            set { this["generatorIdBits"] = value; }
+            get => (byte)this["generatorIdBits"];
+            set => this["generatorIdBits"] = value;
         }
 
         /// <summary>
-        /// Gets/sets the <see cref="MaskConfig.SequenceBits"/> of the <see cref="IdGeneratorElement"/>.
+        /// Gets/sets the <see cref="IdStructure.SequenceBits"/> of the <see cref="IdGeneratorElement"/>.
         /// </summary>
         [ConfigurationProperty("sequenceBits", IsRequired = true)]
         public byte SequenceBits
         {
-            get { return (byte)this["sequenceBits"]; }
-            set { this["sequenceBits"] = value; }
+            get => (byte)this["sequenceBits"];
+            set => this["sequenceBits"] = value;
         }
 
         /// <summary>
@@ -85,9 +94,8 @@ namespace IdGen.Configuration
         [ConfigurationProperty("tickDuration", IsRequired = false)]
         public TimeSpan TickDuration
         {
-            get { return (TimeSpan)this["tickDuration"]; }
-            set { this["tickDuration"] = value; }
+            get => (TimeSpan)this["tickDuration"];
+            set => this["tickDuration"] = value;
         }
     }
 }
-#endif

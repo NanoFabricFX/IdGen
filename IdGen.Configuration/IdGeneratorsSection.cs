@@ -1,5 +1,4 @@
-﻿#if !NETSTANDARD2_0 && !NETCOREAPP2_0
-using System.Configuration;
+﻿using System.Configuration;
 
 namespace IdGen.Configuration
 {
@@ -27,4 +26,3 @@ namespace IdGen.Configuration
         public IdGeneratorsCollection IdGenerators { get { return (IdGeneratorsCollection)base[IdGensCollectionName]; } }
     }
 }
-#endif

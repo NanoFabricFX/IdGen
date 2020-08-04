@@ -1,31 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.1</TargetFrameworks>
+    <TargetFrameworks>net45</TargetFrameworks>
     <Authors>RobIII</Authors>
     <Company>Devcorner.nl</Company>
-    <PackageId>IdGen</PackageId>
+    <PackageId>IdGen.Configuration</PackageId>
     <NoPackageAnalysis>true</NoPackageAnalysis>
-    <Product>IdGen</Product>
+    <Product>IdGen.Configuration</Product>
     <Copyright>Copyright © 2015 - 2020 Devcorner.nl</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/RobThree/IdGen</PackageProjectUrl>
-    <PackageTags>scalable unique id generator distributed</PackageTags>
-    <PackageReleaseNotes>We now use IdGeneratorOptions to configure an IdGenerator. Also, the MaskConfig is now more appropriately named IdStructure. The release contains breaking changes but upgrading 2.x to 3.0 should be pretty simple.</PackageReleaseNotes>
-    <Description>Twitter Snowflake-alike ID generator for .Net</Description>
+    <PackageTags>idgen configuration</PackageTags>
+    <PackageReleaseNotes>Added spinwait option (see #24)</PackageReleaseNotes>
+    <Description>Configuration support for IdGen</Description>
     <Version>3.0</Version>
-    <RootNamespace>IdGen</RootNamespace>
+    <RootNamespace>IdGen.Configuration</RootNamespace>
     <PackageIcon>logo.png</PackageIcon>
     <PackageIconUrl />
     <RepositoryUrl>https://github.com/RobThree/IdGen</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Nullable>enable</Nullable>
-    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.1|AnyCPU'">
-    <DocumentationFile>bin\Release\IdGen.xml</DocumentationFile>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+    <DocumentationFile>bin\Release\IdGen.Configuration.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -40,5 +38,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IdGen\IdGen.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
   </ItemGroup>
 </Project>
